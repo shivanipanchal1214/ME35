@@ -72,7 +72,7 @@ wifi_connect()
 
 city = "Queens"
 country = "US"
-url ="https://api.openweathermap.org/data/2.5/forecast?q={city},{country}&appid={secrets.weather_api}"
+url ="https://api.openweathermap.org/data/2.5/forecast?q={Queens},{country}&appid={secrets.weather_api}"
 
 response = urequests.get(url)
 
