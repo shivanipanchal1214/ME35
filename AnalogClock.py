@@ -54,7 +54,7 @@ while True:
 
 
 #API key Part 2
-from Day3 import urequests, secrets
+from Day3 import urequests, secretsclock
 
 def wifi_connect():
     import network
@@ -63,21 +63,29 @@ def wifi_connect():
     if not sta_if.isconnected():
         print('connecting to network...')
         sta_if.active(True)
-        sta_if.connect(secrets.SSID, secrets.PWD)
+        sta_if.connect(secretsclock.SSID, secretsclock.PWD)
         while not sta_if.isconnected():
             pass
     print('network config:', sta_if.ipconfig('addr4'))
     
 wifi_connect()
 
-city = "Queens"
-country = "US"
-url ="https://api.openweathermap.org/data/2.5/forecast?q={Queens},{country}&appid={secrets.weather_api}"
+url ="https://api.openweathermap.org/data/2.5/forecast?q=Queens,US-NY,840&appid={secretsclock.weather_api}"
 
 response = urequests.get(url)
 
 print(response.status_code)
-print(response)
+print(response.json())
     
-    
+#### 
+response = urequests.get(url)
+print(response.status_code)
 
+data = response.json()
+response.close()             # free the socket
+
+temp = data['main']['temp']
+condition = data['weather'][0]['main']       # e.g. "Rain", "Clear", "Clouds"
+
+print("Temp:", temp)
+print("Condition:", condition)
