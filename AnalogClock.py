@@ -51,7 +51,33 @@ while True:
 #     pulse_min = 2500 - (((2*angle_min)/180)*1000)
 #     servo2.duty_ns(int(pulse_min*1000))
 #     sleep(1)
+
+
+#API key Part 2
+from Day3 import urequests, secrets
+
+def wifi_connect():
+    import network
     
+    sta_if = network.WLAN(network.WLAN.IF_STA)
+    if not sta_if.isconnected():
+        print('connecting to network...')
+        sta_if.active(True)
+        sta_if.connect(secrets.SSID, secrets.PWD)
+        while not sta_if.isconnected():
+            pass
+    print('network config:', sta_if.ipconfig('addr4'))
+    
+wifi_connect()
+
+city = "Queens"
+country = "US"
+url ="https://api.openweathermap.org/data/2.5/forecast?q={city},{country}&appid={secrets.weather_api}"
+
+response = urequests.get(url)
+
+print(response.status_code)
+print(response)
     
     
 
