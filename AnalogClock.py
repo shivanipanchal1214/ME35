@@ -70,22 +70,35 @@ def wifi_connect():
     
 wifi_connect()
 
-url ="https://api.openweathermap.org/data/2.5/forecast?q=Queens,US-NY,840&appid={secretsclock.weather_api}"
+url =f"https://api.openweathermap.org/data/2.5/forecast?q=Queens,US-NY,840&appid={secretsclock.weather_api}"
 
 response = urequests.get(url)
 
 print(response.status_code)
-print(response.json())
+if response.status code == 200:
+    data = response.json()
+    print(data)
     
 #### 
-response = urequests.get(url)
-print(response.status_code)
-
-data = response.json()
 response.close()             # free the socket
 
 temp = data['main']['temp']
-condition = data['weather'][0]['main']       # e.g. "Rain", "Clear", "Clouds"
+#condition = data['weather'][0]['main']       # e.g. "Rain", "Clear", "Clouds"
+temp_cel = temp - 273.15
 
 print("Temp:", temp)
 print("Condition:", condition)
+
+led = LED(17) #check pin
+temp_high = 80
+temp_med = 60
+
+
+#LED
+from LED import gpio
+if temp_med < temp < temp_high:
+    led.on()
+    print("Condition met: LED is on")
+
+
+
