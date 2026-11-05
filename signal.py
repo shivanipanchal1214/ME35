@@ -19,7 +19,7 @@ sta.disconnect()   # Because ESP8266 auto-connects to last Access Point
 e = espnow.ESPNow()
 e.active(True)
 
-peer = b'\x20\x50\x0d\x29\x93\x8c'  #CHANGE THIS
+peer = b'\x20\x50\x0d\x2b\x1b\x3c'  #CHANGE THIS
 command["payload"] = [150,0,150] #CHANGE THIS
 
 
